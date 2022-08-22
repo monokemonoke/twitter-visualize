@@ -141,6 +141,12 @@ def generate_twitter_wordcloud(keyword):
 
 def main():
     from sys import argv
+    from sys import exit
+
+    if len(argv) < 2:
+        print('Error: Not enough arguments')
+        print(f'Usage: python3 {argv[0]} <keyword>')
+        exit(-1)
 
     keyword = argv[1]
     res = generate_twitter_wordcloud(keyword)
