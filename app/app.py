@@ -164,3 +164,5 @@ def generate_wordcloud_page():
     keyword = request.form['keyword']
     res = generate_twitter_wordcloud(escape(keyword))
     return res
+
+app.run(host="0.0.0.0", port=5000, debug=True)

@@ -16,7 +16,9 @@ RUN pip install --upgrade setuptools
 COPY requirements.txt requirements.txt 
 COPY ipaexg00401/ipaexg.ttf ipaexg00401/ipaexg.ttf
 RUN pip install -r requirements.txt
+EXPOSE 5000
 
 COPY ./app /app
 
-CMD ["python", "app.py", "war"]
+
+CMD ["python", "app.py"]
