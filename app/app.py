@@ -7,6 +7,7 @@ import re
 from os import environ
 from dotenv import load_dotenv
 from flask import Flask
+from markupsafe import escape
 
 
 load_dotenv()
@@ -132,18 +133,18 @@ def generate_twitter_wordcloud(keyword):
             )
         }
     </script>'''
-    
+
     res_html = "<!DOCTYPE HTML>\n"
     res_html += svg
     res_html += link_script
-    
+
     return res_html
 
 
 app = Flask(__name__)
 
+
 @app.route("/<keyword>")
 def generate_wordcloud_page(keyword):
-    res = generate_twitter_wordcloud(keyword)
+    res = generate_twitter_wordcloud(escape(keyword))
     return res
-
