@@ -6,7 +6,7 @@ import MeCab
 import re
 from os import environ
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, request, render_template
 from markupsafe import escape
 
 
@@ -152,8 +152,14 @@ def generate_twitter_wordcloud(keyword):
 
 app = Flask(__name__)
 
+@app.route("/")
+def index():
+    return render_template('index.html')
 
-@app.route("/<keyword>")
-def generate_wordcloud_page(keyword):
+
+@app.route("/cloud")
+def generate_wordcloud_page():
+    keyword = ''
+    keyword = request.args.get('q', '')
     res = generate_twitter_wordcloud(escape(keyword))
     return res
