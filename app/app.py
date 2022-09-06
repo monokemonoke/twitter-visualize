@@ -1,3 +1,4 @@
+from crypt import methods
 from requests_oauthlib import OAuth1Session
 import json
 from wordcloud import WordCloud, STOPWORDS
@@ -6,7 +7,7 @@ import MeCab
 import re
 from os import environ
 from dotenv import load_dotenv
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, url_for
 from markupsafe import escape
 
 
@@ -152,14 +153,14 @@ def generate_twitter_wordcloud(keyword):
 
 app = Flask(__name__)
 
+
 @app.route("/")
 def index():
     return render_template('index.html')
 
 
-@app.route("/cloud")
+@app.route("/cloud", methods=["POST"])
 def generate_wordcloud_page():
-    keyword = ''
-    keyword = request.args.get('q', '')
+    keyword = request.form['keyword']
     res = generate_twitter_wordcloud(escape(keyword))
     return res
