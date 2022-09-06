@@ -6,6 +6,7 @@ import MeCab
 import re
 from os import environ
 from dotenv import load_dotenv
+from flask import Flask
 
 
 load_dotenv()
@@ -139,18 +140,10 @@ def generate_twitter_wordcloud(keyword):
     return res_html
 
 
-def main():
-    from sys import argv
-    from sys import exit
+app = Flask(__name__)
 
-    if len(argv) < 2:
-        print('Error: Not enough arguments')
-        print(f'Usage: python3 {argv[0]} <keyword>')
-        exit(-1)
-
-    keyword = argv[1]
+@app.route("/<keyword>")
+def generate_wordcloud_page(keyword):
     res = generate_twitter_wordcloud(keyword)
-    print(res)
+    return res
 
-if __name__ == '__main__':
-    main()
